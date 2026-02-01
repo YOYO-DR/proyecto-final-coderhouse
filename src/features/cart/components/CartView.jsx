@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
+import CartItemList from './CartItemList';
 
 const CartView = ({ cartItems, removeItem, clearCart, getTotalPrice }) => {
+  
   if (cartItems.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
@@ -22,40 +24,11 @@ const CartView = ({ cartItems, removeItem, clearCart, getTotalPrice }) => {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Listado de Productos */}
-        <div className="lg:col-span-2 space-y-4">
-          {cartItems.map((item) => (
-            <div key={item.id} className="flex bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-              <div className="w-24 h-24 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
-                <img src={item.url} alt={item.name} className="w-full h-full object-cover mix-blend-multiply" />
-              </div>
-              <div className="ml-4 flex-grow flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900">{item.name}</h3>
-                    <p className="text-gray-500 text-sm">Cantidad: {item.quantity}</p>
-                  </div>
-                  <button 
-                    onClick={() => removeItem(item.id)}
-                    className="text-red-500 hover:text-red-700 transition-colors"
-                  >
-                    Eliminar
-                  </button>
-                </div>
-                <div className="flex justify-between items-end">
-                  <span className="text-gray-900 font-bold">${item.price * item.quantity}</span>
-                  <span className="text-gray-400 text-xs">${item.price} c/u</span>
-                </div>
-              </div>
-            </div>
-          ))}
-          
-          <button 
-            onClick={clearCart}
-            className="text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors"
-          >
-            Vaciar Carrito
-          </button>
-        </div>
+        <CartItemList 
+          cartItems={cartItems} 
+          removeItem={removeItem} 
+          clearCart={clearCart} 
+        />
 
         {/* Resumen */}
         <div className="bg-gray-50 p-6 rounded-2xl h-fit border border-gray-100">

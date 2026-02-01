@@ -20,7 +20,7 @@ function App() {
         <Route path='/product/:id' element={<ItemDetailContainer />} />
         <Route path='*' element={<NotFoundContainer />} />
       </Routes>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
     </BrowserRouter>
   )
 }

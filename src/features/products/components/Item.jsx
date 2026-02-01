@@ -1,9 +1,6 @@
 import { Link } from 'react-router';
 
 const Item = ({ product }) => {
-  
-  console.log(product);
-
   return (
     <div
       className="flex bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"

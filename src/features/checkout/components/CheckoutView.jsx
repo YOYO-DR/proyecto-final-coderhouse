@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 
-const CheckoutView = ({ cartItems, getTotalPrice, onCreateOrder }) => {
+const CheckoutView = ({ cartItems, getTotalPrice, onCreateOrder, isLoading }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -107,8 +107,9 @@ const CheckoutView = ({ cartItems, getTotalPrice, onCreateOrder }) => {
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-100"
+                disabled={isLoading}
               >
-                Confirmar y Crear Orden
+                {isLoading ? 'Procesando...' : 'Confirmar y Crear Orden'}
               </button>
             </div>
           </form>

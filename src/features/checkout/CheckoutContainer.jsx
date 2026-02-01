@@ -3,44 +3,49 @@ import { CartContext } from "../../context/CartContext";
 import CheckoutView from "./components/CheckoutView";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { createOrder } from "../../firebase/db";
+import { useState } from "react";
 
 const CheckoutContainer = () => {
   const { cartItems, clearCart, getTotalPrice } = useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateOrder = (buyerData) => {
-    // Aquí es donde usualmente iría la lógica de Firebase
+    setIsLoading(true);
     const order = {
       email: buyerData.email,
       name: buyerData.name,
-      items: cartItems.map(item => ({
+      items: cartItems.map((item) => ({
         id: item.id,
         name: item.name,
         price: item.price,
-        quantity: item.quantity
-      }))
-     , 
+        quantity: item.quantity,
+      })),
       total: getTotalPrice(),
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     };
-    
-    console.log("Orden procesada:", order);
-    
-    // Simulación de éxito
-    toast.success(`¡Gracias ${buyerData.name}! Tu orden ha sido creada con éxito.`, {
-        duration: 5000,
-        icon: '🚀',
-    });
-    
-    clearCart();
-    navigate('/');
+
+    createOrder(order).then((orderId) =>{
+      toast.success(
+        `¡Gracias ${buyerData.name}! Tu orden '${orderId}' ha sido creada con éxito.`,
+        {
+          duration: 5000,
+          icon: "🚀",
+        },
+      );
+      clearCart();
+      navigate("/");
+
+    }).finally(() => setIsLoading(false));
   };
 
   return (
-    <CheckoutView 
-      cartItems={cartItems} 
+    <CheckoutView
+      cartItems={cartItems}
       getTotalPrice={getTotalPrice}
       onCreateOrder={handleCreateOrder}
+      isLoading={isLoading}
     />
   );
 };
