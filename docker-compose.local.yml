@@ -1,0 +1,10 @@
+
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./compose/local/Dockerfile
+    image: ecommerce_local_frontend
+    container_name: ecommerce_local_frontend
+    ports:
+      - "5173:5173"

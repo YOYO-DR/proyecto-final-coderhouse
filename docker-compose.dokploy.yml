@@ -1,0 +1,17 @@
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./compose/production/Dockerfile
+    image: eccomerce_production_frontend
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+        limits:
+          cpus: ${FRONTEND_CPU:-1}
+          memory: ${FRONTEND_RAM:-1g}
