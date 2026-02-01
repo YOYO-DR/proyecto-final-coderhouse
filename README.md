@@ -77,5 +77,10 @@ src/
    pnpm run dev
    ```
 
+5. **Ejecutar pruebas:**
+   ```bash
+   pnpm test
+   ```
+
 La aplicación estará disponible en `http://localhost:5173`
 
